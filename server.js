@@ -43,10 +43,10 @@ app.get('/courses/:courseId',async(req,res)=>{
         request.query(`SELECT *  from courses left join levels on courses.course_id = levels.course_id where courses.course_id =${courseId};
         `)
           .then((result) => {
-            res.json(result.recordset);
+            res.status(200).json(result.recordset);
           })
           .catch((err) => {
-            res.json('Error executing query:', err);
+            res.status(400).json('Error executing query:', err);
           });
 })
 
