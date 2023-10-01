@@ -50,6 +50,20 @@ app.get('/courses/:courseId',async(req,res)=>{
           });
 })
 
+app.get('/level/:levelId',async(req,res)=>{
+        const levelId = req.params.levelId;
+        const pool =await sql.connect(config);
+        const request = pool.request();
+        request.query(`select title from sessions where level_id= ${levelId};
+        `)
+          .then((result) => {
+            res.status(200).json(result.recordset);
+          })
+          .catch((err) => {
+            res.status(400).json('Error executing query:', err);
+          });
+})
+
 app.listen( port, ()=>{
         console.log("Connected server");
 } )
